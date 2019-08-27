@@ -2,7 +2,7 @@ package com.bitcamp.serviceimpls;
 import com.bitcamp.domains.AdminBean;
 import com.bitcamp.domains.CustomerBean;
 import com.bitcamp.domains.MemberBean;
-import com.bitcomp.services.MemberService;
+import com.bitcamp.services.MemberService;
 
 public class MemberServiceImpl implements MemberService{
 	private AdminBean[] admin;

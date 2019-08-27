@@ -3,7 +3,8 @@ import com.bitcamp.domains.AccountBean;
 import com.bitcamp.domains.AdminBean;
 import com.bitcamp.domains.CustomerBean;
 import com.bitcamp.domains.MemberBean;
-import com.bitcomp.services.AccountService;
+import com.bitcamp.services.AccountService;
+
 import java.util.Random;
 public class AccountServiceImpl implements AccountService{
 	
@@ -18,9 +19,14 @@ public class AccountServiceImpl implements AccountService{
 
 	public String createAccountNum() {
 		Random ran = new Random();
-		int account = ran.nextInt(3)+1;
-		int account1 = ran.nextInt(3)+1;
-		String result = account + "-" + account1;
+		String a = ran.nextInt(10)+"";
+		String result ="";
+		for(int i=0; i<9; i++) {
+			result += ran.nextInt(10)+"";
+			if(i==4) {
+				result += "-";
+			}
+		}
 		return result;
 	}
 

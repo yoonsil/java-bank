@@ -10,9 +10,12 @@ public class AdminBean extends MemberBean{
 		return employeeNum;
 	}
 	
-	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return super.toString();
+		return String.format("아이디:%s\n"
+				+ "비밀번호:%s\n"
+				+ "이름:%s\n"
+				+ "주민번호앞자리:%s\n"
+				+ "사원번호:"
+				,super.getId(),super.getPw(),super.getName(),super.getSsn(),employeeNum);
 	}
 }

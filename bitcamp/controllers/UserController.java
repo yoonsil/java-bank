@@ -4,8 +4,8 @@ import javax.swing.JOptionPane;
 import com.bitcamp.domains.CustomerBean;
 import com.bitcamp.serviceimpls.AccountServiceImpl;
 import com.bitcamp.serviceimpls.MemberServiceImpl;
-import com.bitcomp.services.AccountService;
-import com.bitcomp.services.MemberService;
+import com.bitcamp.services.AccountService;
+import com.bitcamp.services.MemberService;
 public class UserController {
 	public static void main(String[] args) {
 		AccountService accService = new AccountServiceImpl();
