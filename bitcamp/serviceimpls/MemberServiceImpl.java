@@ -5,121 +5,177 @@ import com.bitcamp.domains.MemberBean;
 import com.bitcamp.services.MemberService;
 
 public class MemberServiceImpl implements MemberService{
-	private AdminBean[] admin;
-	private CustomerBean[] customers;
-	private int cusCount;
-	private int adCount;
-	//---------------------------------
+	private AdminBean[] admins;
+	private CustomerBean[]customers;
+	private int cCount, aCount;
 	public MemberServiceImpl() {
 		customers = new CustomerBean[10];
-		cusCount =0;
+		admins = new AdminBean[10];
+		cCount =0;
+		aCount =0;
 	}
 	//------------------------------------
-	public String join(CustomerBean param) {
-		String msg = "가입완료";
-		customers[cusCount] = param;
-		cusCount++;
-		return msg;
+	public void join(CustomerBean param) {
+		customers[cCount] = param;
+		cCount++;
 	}
-
+	public void register(AdminBean param) {
+		admins[aCount] = param;
+		aCount++;
+	}
+	//-------------------------------------
 	public CustomerBean[] findAllCustomers() {
-		customers = new CustomerBean[cusCount];
-		for(int i=0; i<cusCount; i++) {
-			customers[i] = this.customers[i];
-		}
-		
 		return customers;
 	}
-
-	public CustomerBean[] findbyName(String name) {
-		int num =0;
-		for(int i=0; i<cusCount; i++) {
+	public AdminBean[] findAllAdmins() {
+		return admins;
+	}
+	//-------------------------------------
+	public MemberBean[] findbyName(String name) {
+		int num =0, num2=0,num3 =0;
+		for(int i=0; i<cCount; i++) {
 			if(name.equals(this.customers[i].getName())) {
 			num ++;	
+			break;
 			}
 		}
-		CustomerBean[] customers = new CustomerBean[num];
-		num =0;
-		for(int i=0; i<cusCount; i++) {
-			if(name.equals(this.customers[i].getName())) {
-				customers[i] = this.customers[i];
-				num ++;	
-				}if(customers.length==num) {
+		for(int i=0; i<aCount; i++) {
+			if(name.equals(this.admins[i].getName())) {
+			num2 ++;
+			break;
+			}
+		}
+		num3 = num+num2;
+		MemberBean[] members = new MemberBean[num3];
+		int j=0;
+		for(int i=0; i<cCount; i++) {
+			if(name.equals(customers[i].getName())) {
+				members[j] = customers[i];
+				j++;	
+				if(num == j) {
 					break;
 				}
+			}
+			
 		}
-		return customers;
+		int k =0;
+		for(int i =0; i<aCount;i++){
+			if(name.equals(admins[i].getName())) {
+				members[j] = admins[i];
+				k++;
+				j++;
+				if(num2 == k) {
+					break;
+				}
+			}
+		}
+		return members;
 	}
 
-	public CustomerBean findbyId(String id) {
-		CustomerBean customer = new CustomerBean();
-		for(int i=0; i<cusCount; i++) {
+	public MemberBean findbyId(String id) {
+		MemberBean customer = new MemberBean();
+		for(int i=0; i<cCount; i++) {
 			if(id.equals(customers[i].getId())) {
 				customer = customers[i];
 				break;
 			}
 		}
-		return customer;
-	}
-
-	public boolean login(CustomerBean param) {
-		boolean flag = false;
-		for(int i=0; i<cusCount; i++) {
-			if(param.getId().equals(customers[i].getId())&&
-				param.getPw().equals(customers[i].getPw())) {
-				flag = true;
+		for(int i=0; i<aCount; i++) {
+			if(id.equals(admins[i].getId())) {
+				customer = admins[i];
 				break;
 			}
-			
 		}
-		return flag;
+		return customer;
+	}
+	
+	
+	public boolean login(MemberBean param) {
+		return findbyId(param.getId())
+				.getPw()
+				.equals(param.getPw());
 	}
 
 	public int countCustomers() {
-		return cusCount;
+		return cCount;
 	}
-
+	
+	public int countAdmins() {
+		return aCount;
+	}
+	
 	public boolean existId(String id) {
-		boolean flag = true;
-		for(int i=0; i<cusCount; i++) {
+		boolean flag = false;
+		for(int i=0; i<cCount; i++) {
 			if(id.equals(customers[i].getId())) {
-				flag = false;
+				flag = true;
+				break;
+			}
+		}
+		for(int i=0; i<aCount; i++) {
+			if(id.equals(admins[i].getId())) {
+				flag = true;
+				break;
 			}
 		}
 		return flag;
 	}
 
-	public String updatePw(MemberBean param) {
+	public void updatePw(MemberBean param) {
 		String id = param.getId();
-		String pw = param.getPw();
-		String[] arr = pw.split(",");
-		String currPw = arr[0];
-		String newPw = arr[1];
-		String msg ="변경실패";
-		for(int i=0; i<cusCount; i++) {
-			if(currPw.equals(customers[i].getId())) {
-				customers[i].setPw(newPw);
-				msg ="변경완료";
-				break;
+		String[]pw = param.getPw().split(",");
+		String currPw = pw[0];
+		String newPw = pw[1];
+		param.setId(currPw);
+		if(login(param)) {
+			for(int i=0;i< cCount;i++) {
+				if(id.equals(customers[i].getId())) {
+					customers[i].setPw(currPw);;
+					break;
 				}
 			}
-			return msg;
+			for(int i=0;i< aCount;i++) {
+				if(id.equals(admins[i].getId())) {
+					admins[i].setPw(newPw);
+					break;
+				}
+			}
 		}
-
+	}
 	public void deleteMember(MemberBean param) {
-		
-	}
-
-	public AdminBean[] findAllAdmins() {
-		admin = new AdminBean[adCount];
-		for(int i=0; i<adCount; i++) {
-			
+		if(login(param)) {
+			for(int i=0; i<cCount; i++) {
+				if(param.getId().equals(customers[i].getId())) {
+					customers[i] = customers[cCount-1];
+					cCount--;
+					break;
+				}
+			}
+			//--------------------------------------------
+			for(int i=0; i<aCount; i++) {
+				if(param.getId().equals(admins[i].getId())) {
+					admins[i] = admins[aCount-1];
+					admins[aCount-1] = null;
+					aCount--;
+					break;
+				}
+			}
 		}
-		return admin;
 	}
-
-	public int countAdmins() {
-		return 0;
-	}
-
+		
+//		int num =0;
+//		MemberBean[] members = null;
+//		MemberBean[] temp = null;
+//		for(int i=0; i<count; i++) {
+//			if(login(param)){
+//				temp[i] = customers[i];
+//				count--;
+//			}
+//		}
+//			members = new MemberBean[count-1];
+//			for(int i=0; i<cCount; i++) {
+//				members[i] = temp[i];
+//		}
+	
+	
 }

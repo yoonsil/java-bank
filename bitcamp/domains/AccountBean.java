@@ -1,8 +1,7 @@
 package com.bitcamp.domains;
 
 public class AccountBean extends MemberBean{
-	private String accountNum, transactionDate; 
-	private int money;
+	private String accountNum, transactionDate, money;
 	
 	public void setAccountNum(String accountNum) {
 		this.accountNum = accountNum;
@@ -16,18 +15,19 @@ public class AccountBean extends MemberBean{
 	public String getTransactionDate() {
 		return transactionDate;
 	}
-	public void setMoney(int money) {
+	public void setMoney(String money) {
 		this.money = money;
 	}
-	public int getMoney() {
+	public String getMoney() {
 		return money;
 	}
-	
+	@Override
 	public String toString() {
-		return String.format("계좌번호:%s\n"
-				+ "거래일:%s\n"
-				+ "잔금:%d\n", accountNum, transactionDate , money);
+		return "계좌정보 [계좌번호=" + accountNum + ", 거래일자=" + transactionDate + ", 금액 =" + money
+				+ "]";
 	}
+	
+	
 	
 	
 	

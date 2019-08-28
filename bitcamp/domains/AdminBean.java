@@ -11,11 +11,12 @@ public class AdminBean extends MemberBean{
 	}
 	
 	public String toString() {
-		return String.format("아이디:%s\n"
+		return String.format("[사원정보]\n"
+				+"아이디:%s\n"
 				+ "비밀번호:%s\n"
 				+ "이름:%s\n"
 				+ "주민번호앞자리:%s\n"
 				+ "사원번호:"
-				,super.getId(),super.getPw(),super.getName(),super.getSsn(),employeeNum);
+				,getId(),getPw(),getName(),getSsn(),employeeNum);
 	}
 }

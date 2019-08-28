@@ -33,7 +33,6 @@ public class UserController {
 				customer.setPw(arr[1]);
 				customer.setName(arr[2]);
 				customer.setSsn(arr[3]);
-				JOptionPane.showMessageDialog(null, memService.join(customer));
 				break;
 			case "2": //계좌등록
 				
@@ -67,7 +66,6 @@ public class UserController {
 				customer = new CustomerBean();
 				customer.setId(arr[0]);
 				customer.setPw(arr[1]+","+arr[2]);
-				JOptionPane.showMessageDialog(null, memService.updatePw(customer));
 				break;
 			}
 		}
