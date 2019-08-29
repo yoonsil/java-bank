@@ -27,16 +27,24 @@ public class AdminController {
 						.showInputDialog("개설할 계좌에 금액을 입력")));
 				break;
 			case "2": 
-				JOptionPane.showMessageDialog(null,service.findAll());
+				JOptionPane.showMessageDialog(null,
+						service.findAll());
 				break;
 			case "3": 
-				JOptionPane.showMessageDialog(null,service.createAccountNum());
+				JOptionPane.showMessageDialog(null,
+						service.createAccountNum());
 				break;
 			case "4": 
-				JOptionPane.showMessageDialog(null,service.countAccounts());
+				JOptionPane.showMessageDialog(null,
+						service.countAccounts());
 				break;
 			case "5": 
-				service.existAccountNum(JOptionPane.showInputDialog("계좌확인"));
+				service.existAccountNum(
+						JOptionPane.showInputDialog("계좌확인"));
+						JOptionPane.showMessageDialog(null,
+							(service.existAccountNum
+							(JOptionPane.showInputDialog
+							("계좌확인")))?"존재":"없음");	
 				break;
 			case "6":
 				String[] arr = JOptionPane.showInputDialog("예금입력").split(",");

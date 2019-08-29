@@ -28,7 +28,7 @@ public class AccountServiceImpl implements AccountService{
 		String a = ran.nextInt(10)+"";
 		String result ="";
 		for(int i=0;i<9;i++) {
-			result += (i==4)?"-":ran.nextInt(10);
+		result += (i==4)?"-":ran.nextInt(10);
 			}
 		return result;
 		}
